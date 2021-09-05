@@ -1,12 +1,12 @@
-public class Document {
+public abstract class Document {
     /**
      * Все виды документов должны иметь обязательные реквизиты:
-     *  - номер
-     *  - название
+     * - номер
+     * - название
      * Номер документа присваивается ему в момент создания и не может быть изменен в дальнейшем.
      */
 
-    private int numberDocument;
+    private final int numberDocument;
     private String nameDocument;
 
     public Document(int numberDocument, String nameDocument) {
@@ -26,8 +26,9 @@ public class Document {
         this.nameDocument = nameDocument;
     }
 
-    public void printDisplay(){
-        System.out.println("Документ №" + numberDocument);
+    public void printDocument() {
+        System.out.println("Номер документа №" + numberDocument);
         System.out.println(nameDocument);
     }
 }
+

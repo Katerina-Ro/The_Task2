@@ -1,4 +1,4 @@
-public class HRDocuments extends Document implements ChangeStatus{
+public abstract class HRDocuments extends Document implements ChangeStatus{
     /**
      * Приказы на прием и увольнение относятся к кадровым документам и должны иметь следующие реквизиты:
      - сотрудник
@@ -8,18 +8,18 @@ public class HRDocuments extends Document implements ChangeStatus{
      * Поле сотрудник присваивается в момент создания кадрового документа и не может быть изменено в дальнейшем.
 
      * Реквизит статус может принимать следующие значения:
-     - CREATED_BY
-     - EXECUTED
+     - СОЗДАН
+     - ИСПОЛНЕН
      */
 
-    private Employee employee;
+    private final Employee employee;
     private String textHRDocument;
-    private Status status;
+    private String status;
 
     public HRDocuments(int numberDocument, String nameDocument, Employee employee, String textDocument) {
         super(numberDocument, nameDocument);
         this.employee = employee;
-        status = Status.СОЗДАН;
+        status = Status.CREATED_BY.getType_status();
         this.textHRDocument = textDocument;
     }
 
@@ -27,36 +27,25 @@ public class HRDocuments extends Document implements ChangeStatus{
         return employee;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     public String getTextHRDocument() {
         return textHRDocument;
     }
 
-    public void setTextHRDocument(String textHRDocument) {
-        this.textHRDocument = textHRDocument;
-    }
-
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-
-    @Override
     public void setStatus(){
-        if (status.equals(Status.ИСПОЛНЕН)) {
-            System.out.println("Статус кадрового документа № "  + getNumberDocument() +  " " + "\"" + getNameDocument() + "\"" + " \"" + Status.ИСПОЛНЕН + "\"" + " , поэтому данный документ не может быть перевед в статус " + "\"" + Status.СОЗДАН + "\"");
+        if (status.equals(Status.EXECUTED.getType_status())) {
+            System.out.println("Статус кадрового документа № "  + getNumberDocument() +  " " + "\"" + getNameDocument() + "\"" + " \"" + Status.EXECUTED.getType_status() + "\"" + " , поэтому данный документ не может быть перевед в статус " + "\"" + Status.CREATED_BY.getType_status() + "\"");
         }
         else {
-            this.status = Status.ИСПОЛНЕН;
-            System.out.println("Статус документа №" + getNumberDocument() +  " " + "\"" + getNameDocument() + "\"" + " изменен на " + this.status);
+            this.status = Status.EXECUTED.getType_status();
+            System.out.println("Статус документа № " + getNumberDocument() +  " " + "\"" + getNameDocument() + "\"" + " изменен на " + this.status);
         }
     }
 
-    @Override
-    public void printDisplay (){
+    public void printHRDocument (){
         System.out.println("Документ №" + getNumberDocument());
         System.out.println(getNameDocument());
         System.out.println("ФИО: " + employee.getSurname() + " " + employee.getName() + " " + employee.getPatronymic());
@@ -65,7 +54,4 @@ public class HRDocuments extends Document implements ChangeStatus{
     }
 }
 
-enum Status {
-    СОЗДАН,
-    ИСПОЛНЕН
-}
+

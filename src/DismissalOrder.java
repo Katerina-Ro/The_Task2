@@ -6,16 +6,7 @@ public class DismissalOrder extends HRDocuments{
         this.reasonForDismissal = reasonForDismissal;
     }
 
-    public String getReasonForDismissal() {
-        return reasonForDismissal;
-    }
-
-    public void setReasonForDismissal(String reasonForDismissal) {
-        this.reasonForDismissal = reasonForDismissal;
-    }
-
-    @Override
-    public void printDisplay () {
+    public void printDismissalOrder () {
         System.out.println("Документ №" + getNumberDocument());
         System.out.println(getNameDocument());
         System.out.println("ФИО: " + getEmployee().getSurname() + " " + getEmployee().getName() + " " + getEmployee().getPatronymic());
@@ -26,8 +17,7 @@ public class DismissalOrder extends HRDocuments{
 
     @Override
     public String toString() {
-        return "DismissalOrder{" +
-                "Причина увольнения - '" + reasonForDismissal + '\'' +
-                '}';
+        return "Приказ на увольнение " +
+                "Причина увольнения - '" + reasonForDismissal;
     }
 }
